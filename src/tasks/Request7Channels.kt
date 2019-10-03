@@ -11,6 +11,22 @@ suspend fun loadContributorsChannels(
     updateResults: suspend (List<User>, completed: Boolean) -> Unit
 ) {
     coroutineScope {
+
         TODO()
+//
+//        val channel = Channel<List<User>>()
+//
+//        for (repo in repos) {
+//            launch {
+//                val users = ...
+//                // ...
+//                channel.send(users)
+//            }
+//        }
+//        repeat(repos.size) {
+//            val users = channel.receive()
+//            ...
+//        }
+
     }
 }

@@ -7,7 +7,12 @@ import retrofit2.Response
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 
-fun loadContributorsCallbacks(service: GitHubService, req: RequestData, updateResults: (List<User>) -> Unit) {
+fun loadContributorsCallbacks(
+    service: GitHubService,
+    req: RequestData,
+    updateResults: (List<User>) -> Unit
+) {
+
     service.getOrgReposCall(req.org).onResponse { responseRepos ->
         logRepos(req, responseRepos)
         val repos = responseRepos.bodyList()
