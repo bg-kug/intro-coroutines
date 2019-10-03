@@ -9,24 +9,30 @@ suspend fun loadContributorsChannels(
     service: GitHubService,
     req: RequestData,
     updateResults: suspend (List<User>, completed: Boolean) -> Unit
-) {
-    coroutineScope {
+) = coroutineScope {
 
-        TODO()
-//
-//        val channel = Channel<List<User>>()
-//
-//        for (repo in repos) {
-//            launch {
-//                val users = ...
-//                // ...
-//                channel.send(users)
-//            }
-//        }
-//        repeat(repos.size) {
-//            val users = channel.receive()
-//            ...
-//        }
+    val repos = service
+        .getOrgRepos(req.org)
+        .also { logRepos(req, it) }
+        .bodyList()
 
+    val channel = Channel<List<User>>()
+
+    for (repo in repos) {
+        launch {
+            val users = service
+                .getRepoContributors(req.org, repo.name)
+                .also { logUsers(repo, it) }
+                .bodyList()
+            channel.send(users)
+        }
     }
+    val allUsers = mutableListOf<User>()
+    repeat(repos.size) {
+        val users = channel.receive()
+        allUsers += users
+        updateResults(allUsers.aggregate(), it == repos.lastIndex)
+    }
+
 }
+
