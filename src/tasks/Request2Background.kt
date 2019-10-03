@@ -12,6 +12,7 @@ fun loadContributorsBackground(
 ) {
 
     thread {
-        loadContributorsBlocking(service, req)
+        val users = loadContributorsBlocking(service, req)
+        updateResults(users)
     }
 }
