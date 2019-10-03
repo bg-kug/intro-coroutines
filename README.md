@@ -6,3 +6,8 @@
 This repository is the code corresponding to the
 [Introduction to Coroutines and Channels](https://play.kotlinlang.org/hands-on/Introduction%20to%20Coroutines%20and%20Channels/01_Introduction)
 Hands-On Lab. 
+
+---
+
+- [slide deck](https://docs.google.com/presentation/d/1FgQkRXhh1GaQ-XnrdRN4DP-4FFuohmQ28OL-Y6CWjHg/)
+- VM Options for coroutine logging: `-Dkotlinx.coroutines.debug`
